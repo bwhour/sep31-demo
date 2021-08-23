@@ -17,11 +17,11 @@ type infoasset struct {
 	Fields              map[string]interface{} `json:"fields,omitempty"`
 }
 
-type info struct {
+type Info struct {
 	Recieve map[string]infoasset `json:"recieve,omitempty"`
 }
 
-type transreq struct {
+type Transreq struct {
 	Amount      uint64                 `json:"amount"`
 	Asset_code  string                 `json:"asset_code"`
 	Sender_id   string                 `json:"sender_id"`
@@ -29,7 +29,7 @@ type transreq struct {
 	Fields      map[string]interface{} `json:"fields,omitempty"`
 }
 
-type transaction struct {
+type Transaction struct {
 	Id                 string                 `json:"id"`
 	Stellar_account_id string                 `json:"stellar_account_id"`
 	Stellar_memo_type  string                 `json:"stellar_memo_type"`
@@ -38,7 +38,7 @@ type transaction struct {
 	How                string                 `json:"how"`
 }
 
-type transinfo struct {
+type Transinfo struct {
 	Id                      string `json:"id"`
 	Status                  string `json:"status"`
 	Amount_in               string `json:"amount_in"`
@@ -47,7 +47,7 @@ type transinfo struct {
 	Stellar_account_id      string `json:"stellar_account_id"`
 	Stellar_memo_type       string `json:"stellar_memo_type"`
 	Stellar_memo            string `json:"stellar_memo"`
-	Started_at              int64  `json:"timestamp"`
+	Started_at              string `json:"started_at"`
 	Stellar_transaction_id  string `json:"stellar_transaction_id"`
 	External_transaction_id string `json:"external_transaction_id"`
 }
