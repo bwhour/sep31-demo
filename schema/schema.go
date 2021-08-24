@@ -1,15 +1,15 @@
 package schema
 
 type trans struct {
-	Deposit_m method `json:"deposit_m"`
-	Remit_m   method `json:"deposit_m"`
+	Deposit_m Method `json:"deposit_m"`
+	Remit_m   Method `json:"deposit_m"`
 }
 
-type method struct {
+type Method struct {
 	Description string   `json:"description"`
 	Choices     []string `json:"choices"`
 }
-type infoasset struct {
+type Infoasset struct {
 	Enabled             bool                   `json:"enabled"`
 	Max_amount          uint64                 `json:"max_amount"`
 	Sender_sep12_type   string                 `json:"sender_sep12_type"`
@@ -18,7 +18,7 @@ type infoasset struct {
 }
 
 type Info struct {
-	Recieve map[string]infoasset `json:"recieve,omitempty"`
+	Recieve map[string]Infoasset `json:"recieve,omitempty"`
 }
 
 type Transreq struct {

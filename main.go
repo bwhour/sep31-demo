@@ -30,14 +30,15 @@ func main() {
 }
 
 func getInfo(c *gin.Context) {
+
 	c.JSON(http.StatusOK, gin.H{
-		"data": "getInfo",
+		"method": "getInfo",
 	})
 }
 
 func getTransaction(c *gin.Context) {
 	id := c.Param("id")
-	d := []schema.Transinfo{
+	resp := []schema.Transinfo{
 		{
 			Id:                      "3bf73ba8-8a48-41b7-99da-b3d70ad959c0",
 			Status:                  "completed",
@@ -54,13 +55,33 @@ func getTransaction(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"method": "getTransactions",
 		"id":     id,
-		"data":   d,
+		"resp":   resp,
 	})
 }
 
 func createTransaction(c *gin.Context) {
-
+	resp := []schema.Transaction{
+		{
+			Id:                 "6238dd28-a47a-470e-9cee-7f547730d6b1",
+			Stellar_account_id: "GBUQO65XW7TDXIHND7MFNIUZU6UNBA5XN27ODFDXVOLZYOXQSQUTPVHW",
+			Stellar_memo_type:  "text",
+			Stellar_memo:       "psp:2852",
+			Extra_info: map[string]interface{}{
+				"amount":                  "53",
+				"bank_name":               "BRED BAGNOLET",
+				"beneficiary":             "TEMPO FRANCE",
+				"beneficiary_address":     "89 BOULEVARD DE MAGENTA 75010 PARIS",
+				"bic":                     "BREDFRPPXXX",
+				"currency":                "EUR",
+				"external_transaction_id": "5b22d1ed-b789-48e0-9d45-9d2f116f0159",
+				"iban":                    "FR76 1010 7002 3000 5220 3386 959",
+				"reference_id":            "swift_101",
+				"transaction_id":          "5b22d1ed-b789-48e0-9d45-9d2f116f0159",
+			},
+			How: "SWIFT",
+		}}
 	c.JSON(http.StatusOK, gin.H{
-		"data": "createTransaction",
+		"method": "createTransaction",
+		"resp":   resp,
 	})
 }
