@@ -39,15 +39,23 @@ type Transaction struct {
 }
 
 type Transinfo struct {
-	Id                      string `json:"id"`
-	Status                  string `json:"status"`
-	Amount_in               string `json:"amount_in"`
-	Amount_out              string `json:"amount_out"`
-	Amount_fee              string `json:"amount_fee"`
-	Stellar_account_id      string `json:"stellar_account_id"`
-	Stellar_memo_type       string `json:"stellar_memo_type"`
-	Stellar_memo            string `json:"stellar_memo"`
-	Started_at              string `json:"started_at"`
-	Stellar_transaction_id  string `json:"stellar_transaction_id"`
-	External_transaction_id string `json:"external_transaction_id"`
+	Id                    string `json:"id"`
+	Status                string `json:"status"`
+	AmountIn              string `json:"amount_in"`
+	AmountOut             string `json:"amount_out"`
+	AmountFee             string `json:"amount_fee"`
+	StellarAccountId      string `json:"stellar_account_id"`
+	StellarMemoType       string `json:"stellar_memo_type"`
+	StellarMemo           string `json:"stellar_memo"`
+	StartedAt             string `json:"started_at"`
+	StellarTransactionId  string `json:"stellar_transaction_id"`
+	ExternalTransactionId string `json:"external_transaction_id"`
+}
+
+type CustomerInfo struct {
+	Id              string                 `json:"id"`
+	Status          string                 `json:"status"`
+	Message         string                 `json:"message,omitempty"`
+	Fields          map[string]interface{} `json:"fields,omitempty"`
+	Provided_fields map[string]interface{} `json:"provided_fields,omitempty"`
 }
