@@ -35,7 +35,7 @@ type Transaction struct {
 	Stellar_memo_type  string                 `json:"stellar_memo_type"`
 	Stellar_memo       string                 `json:"stellar_memo"`
 	Extra_info         map[string]interface{} `json:"extra_info,omitempty"`
-	How                string                 `json:"how"`
+	How                string                 `json:"how,omitempty"`
 }
 
 type Transinfo struct {
