@@ -59,3 +59,10 @@ type CustomerInfo struct {
 	Fields          map[string]interface{} `json:"fields,omitempty"`
 	Provided_fields map[string]interface{} `json:"provided_fields,omitempty"`
 }
+
+type CustmoerReq struct {
+	Account  string `json:"id,omitempty"`
+	Memo     string `json:"memo,omitempty"`
+	MemoType string `json:"memo_type,omitempty"`
+	Type     string `json:"type,omitempty"`
+}
