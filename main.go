@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/bwhour/sep31-demo/header"
 	"github.com/bwhour/sep31-demo/schema"
@@ -107,9 +108,16 @@ func getTransaction(c *gin.Context) {
 }
 
 func getCustomer(c *gin.Context) {
+	var id string
+	url_type := c.Query("type")
+	if strings.EqualFold(url_type, "sender") {
+		id = "391fb415-c223-4608-b2f5-dd1e91e3a986"
+	} else if strings.EqualFold(url_type, "receiver") {
+		id = "391fb415-c223-4608-b2f5-dd1e91e3a999"
+	}
 	resp := schema.CustomerInfo{
 		// The case when a customer has been successfully KYC'd and approved
-		Id:     "d1ce2f48-3ff1-495d-9240-7a50d806cfed",
+		Id:     id,
 		Status: "ACCEPTED",
 		Provided_fields: map[string]interface{}{
 			"first_name": map[string]interface{}{
@@ -126,6 +134,11 @@ func getCustomer(c *gin.Context) {
 				"description": "The customer's email address",
 				"type":        "string",
 				"status":      "ACCEPTED",
+			},
+			"phone_number": map[string]interface{}{
+				"description": "The customer's phone number",
+				"status":      "ACCEPTED",
+				"type":        "string",
 			},
 		},
 	}
