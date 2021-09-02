@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"strings"
-
+	
 	"github.com/bwhour/sep31-demo/header"
 	"github.com/bwhour/sep31-demo/schema"
 	"github.com/gin-gonic/gin"
@@ -12,24 +12,24 @@ import (
 
 func main() {
 	r := gin.Default()
-
+	
 	r.Use(header.NoCache)
 	r.Use(header.Options)
 	r.Use(header.Secure)
-
+	
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
 	})
-
+	
 	// add router.
 	r.GET("/sep0031/info/", getInfo)
 	r.GET("/sep0012/customer/", getCustomer)
 	r.GET("/sep0031/transactions/:id", getTransaction)
 	r.PUT("/sep0012/customer", updateCustomer)
 	r.POST("/sep0031/transactions", createTransaction)
-
+	
 	r.Run(":9935") // listen and serve on 0.0.0.0:9935
 }
 
@@ -108,16 +108,22 @@ func getTransaction(c *gin.Context) {
 }
 
 func getCustomer(c *gin.Context) {
-	var id string
+	
 	url_type := c.Query("type")
-	if strings.EqualFold(url_type, "sender") {
-		id = "391fb415-c223-4608-b2f5-dd1e91e3a986"
-	} else if strings.EqualFold(url_type, "receiver") {
-		id = "391fb415-c223-4608-b2f5-dd1e91e3a999"
+	url_id := c.Query("id")
+	url_memo := c.Query("memo")
+	if strings.EqualFold(url_type, "sender") ||
+		strings.EqualFold(url_id, "391fb415-c223-4608-b2f5-dd1e91e3a986") ||
+		strings.EqualFold(url_memo, "email:ya.gekpp@yandex.ru") {
+		url_id = "391fb415-c223-4608-b2f5-dd1e91e3a986"
+	} else if strings.EqualFold(url_type, "receiver") ||
+		strings.EqualFold(url_id, "391fb415-c223-4608-b2f5-dd1e91e3a999") ||
+		strings.EqualFold(url_memo, "email:lada@bitazza.com") {
+		url_id = "391fb415-c223-4608-b2f5-dd1e91e3a999"
 	}
 	resp := schema.CustomerInfo{
 		// The case when a customer has been successfully KYC'd and approved
-		Id:     id,
+		Id:     url_id,
 		Status: "ACCEPTED",
 		Provided_fields: map[string]interface{}{
 			"first_name": map[string]interface{}{
@@ -142,15 +148,20 @@ func getCustomer(c *gin.Context) {
 			},
 		},
 	}
-
+	
 	c.JSON(http.StatusOK, resp)
 }
 
 func updateCustomer(c *gin.Context) {
-
-	c.JSON(http.StatusOK, gin.H{
-		"id": "391fb415-c223-4608-b2f5-dd1e91e3a986",
-	})
+	var id string
+	url_type := c.PostForm("type")
+	
+	if strings.EqualFold(url_type, "SENDER") {
+		id = "391fb415-c223-4608-b2f5-dd1e91e3a986"
+	} else if strings.EqualFold(url_type, "RECEIVER") {
+		id = "391fb415-c223-4608-b2f5-dd1e91e3a999"
+	}
+	c.JSON(http.StatusOK, gin.H{"id": id})
 }
 
 func createTransaction(c *gin.Context) {
