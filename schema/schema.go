@@ -41,15 +41,15 @@ type Transaction struct {
 type Transinfo struct {
 	Id                    string `json:"id"`
 	Status                string `json:"status"`
-	AmountIn              string `json:"amount_in"`
-	AmountOut             string `json:"amount_out"`
-	AmountFee             string `json:"amount_fee"`
+	AmountIn              string `json:"amount_in,omitempty"`
+	AmountOut             string `json:"amount_out,omitempty"`
+	AmountFee             string `json:"amount_fee,omitempty"`
 	StellarAccountId      string `json:"stellar_account_id"`
 	StellarMemoType       string `json:"stellar_memo_type"`
 	StellarMemo           string `json:"stellar_memo"`
-	StartedAt             string `json:"started_at"`
-	StellarTransactionId  string `json:"stellar_transaction_id"`
-	ExternalTransactionId string `json:"external_transaction_id"`
+	StartedAt             string `json:"started_at,omitempty"`
+	StellarTransactionId  string `json:"stellar_transaction_id,omitempty"`
+	ExternalTransactionId string `json:"external_transaction_id,omitempty"`
 }
 
 type CustomerInfo struct {
