@@ -35,30 +35,30 @@ func main() {
 
 func getInfo(c *gin.Context) {
 	resp := map[string]interface{}{
-		"receive":map[string]interface{}{
-			"VUSD":map[string]interface{}{
+		"receive": map[string]interface{}{
+			"VUSD": map[string]interface{}{
 				"enabled": true,
-				"sep_12":map[string]interface{}{
-					"sender":map[string]interface{}{
-						"type":map[string]interface{} {
-							"sep31-sender":map[string]interface{} {
+				"sep_12": map[string]interface{}{
+					"sender": map[string]interface{}{
+						"type": map[string]interface{}{
+							"sep31-sender": map[string]interface{}{
 								"description": "sender",
 							},
 						},
 					},
-					"receiver":map[string]interface{} {
-						"type":map[string]interface{} {
-							"sep31-receiver":map[string]interface{} {
+					"receiver": map[string]interface{}{
+						"type": map[string]interface{}{
+							"sep31-receiver": map[string]interface{}{
 								"description": "receiver",
 							},
 						},
 					},
 				},
-				"fields":map[string]interface{} {
+				"fields": map[string]interface{}{
 					"transaction": map[string]interface{}{
 						"receiver_account_number": map[string]interface{}{
-							"type": "string",
-							"description": "Receiver account number where payout will be executed to." },
+							"type":        "string",
+							"description": "Receiver account number where payout will be executed to."},
 					},
 				},
 			},
@@ -69,14 +69,12 @@ func getInfo(c *gin.Context) {
 
 func getTransaction(c *gin.Context) {
 	id := c.Param("id")
-	resp := []schema.Transinfo{
-		{
-			Id:                    id,
-			Status:                "completed",
-			StellarAccountId:      "GDRZFOASKJUV5E2ETWJY5RZRKQF3PMCZ2CNLLWH365X7OUM5NHUOVE7I",
-			StellarMemoType:       "text",
-			StellarMemo:           "velo:GMWJGSAPGATL",
-		},
+	resp := schema.Transinfo{
+		Id:               id,
+		Status:           "completed",
+		StellarAccountId: "GDRZFOASKJUV5E2ETWJY5RZRKQF3PMCZ2CNLLWH365X7OUM5NHUOVE7I",
+		StellarMemoType:  "text",
+		StellarMemo:      "velo:GMWJGSAPGATL",
 	}
 	c.JSON(http.StatusOK, resp)
 }
@@ -97,9 +95,8 @@ func getCustomer(c *gin.Context) {
 	}
 	resp := schema.CustomerInfo{
 		// The case when a customer has been successfully KYC'd and approved
-		Id:     url_id,
 		Status: "NEEDS_INFO",
-		Provided_fields: map[string]interface{}{
+		Fields: map[string]interface{}{
 			"email": map[string]interface{}{
 				"description": "The customer's email address",
 				"type":        "string",
@@ -131,18 +128,16 @@ func updateCustomer(c *gin.Context) {
 	} else if strings.EqualFold(url_type, "sep31-receiver") {
 		id = "9114353d-4b51-47dc-ae19-372b9d43fffa"
 	}
-	c.JSON(http.StatusOK, gin.H{"id": id,"status":"ACCEPTED"})
+	c.JSON(http.StatusOK, gin.H{"id": id, "status": "ACCEPTED"})
 }
 
 func createTransaction(c *gin.Context) {
 	id := uuid.New().String()
-	resp := []schema.Transaction{
-		{
-			Id:                 id,
-			Stellar_account_id: "GDRZFOASKJUV5E2ETWJY5RZRKQF3PMCZ2CNLLWH365X7OUM5NHUOVE7I",
-			Stellar_memo_type:  "text",
-			Stellar_memo:       "velo:WWMNPPQIMGEG",
-		},
+	resp := schema.Transaction{
+		Id:                 id,
+		Stellar_account_id: "GDRZFOASKJUV5E2ETWJY5RZRKQF3PMCZ2CNLLWH365X7OUM5NHUOVE7I",
+		Stellar_memo_type:  "text",
+		Stellar_memo:       "velo:WWMNPPQIMGEG",
 	}
 	c.JSON(http.StatusOK, resp)
 }
