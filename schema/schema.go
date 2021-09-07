@@ -53,7 +53,7 @@ type Transinfo struct {
 }
 
 type CustomerInfo struct {
-	Id              string                 `json:"id"`
+	Id              string                 `json:"id,omitempty"`
 	Status          string                 `json:"status"`
 	Message         string                 `json:"message,omitempty"`
 	Fields          map[string]interface{} `json:"fields,omitempty"`
