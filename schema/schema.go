@@ -61,8 +61,8 @@ type CustomerInfo struct {
 }
 
 type CustmoerReq struct {
-	Account  string `json:"id,omitempty"`
-	Memo     string `json:"memo,omitempty"`
-	MemoType string `json:"memo_type,omitempty"`
-	Type     string `json:"type,omitempty"`
+	Id       string `json:"id"`
+	Memo     string `json:"memo"`
+	MemoType string `json:"memo_type"`
+	Type     string `json:"type" binding:"required"`
 }

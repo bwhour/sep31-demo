@@ -1,9 +1,11 @@
 package main
 
 import (
+	"io/ioutil"
 	"net/http"
 	"strings"
 	
+	"github.com/buger/jsonparser"
 	"github.com/bwhour/sep31-demo/header"
 	"github.com/bwhour/sep31-demo/schema"
 	"github.com/gin-gonic/gin"
@@ -121,13 +123,29 @@ func getCustomer(c *gin.Context) {
 
 func updateCustomer(c *gin.Context) {
 	var id string
-	url_type := c.PostForm("type")
+	// url_type := c.PostForm("type")
+	// if strings.EqualFold(url_type, "sep31-sender") {
+	// 	id = "be68fbb2-0aa1-408b-9728-e2259a352a82"
+	// } else if strings.EqualFold(url_type, "sep31-receiver") {
+	// 	id = "9114353d-4b51-47dc-ae19-372b9d43fffa"
+	// }
 	
-	if strings.EqualFold(url_type, "sep31-sender") {
+	// var req schema.CustmoerReq
+	// if err := c.BindJSON(&req); err != nil {
+	// 	fmt.Println(req)
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"id": id, "status": "ACCEPTED"})
+	// } else {
+	// 	id = req.Id
+	// 	fmt.Println(req)
+	// }
+	value, _ := ioutil.ReadAll(c.Request.Body)
+	dataType, _ := jsonparser.GetString(value, "type")
+	if dataType == "sep31-sender" {
 		id = "be68fbb2-0aa1-408b-9728-e2259a352a82"
-	} else if strings.EqualFold(url_type, "sep31-receiver") {
+	} else if dataType == "sep31-receiver" {
 		id = "9114353d-4b51-47dc-ae19-372b9d43fffa"
 	}
+	
 	c.JSON(http.StatusOK, gin.H{"id": id, "status": "ACCEPTED"})
 }
 
